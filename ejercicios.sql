@@ -13,9 +13,9 @@ FROM employees
 ORDER BY hire_date DESC
 LIMIT 1;
 
-/* =========================================================
+/*
    2) SALARIOS (HISTÓRICOS vs ACTUALES)
-   ========================================================= */
+ */
 
 -- Salario más alto y más bajo registrado (histórico)
 SELECT MIN(salary) AS salario_min, MAX(salary) AS salario_max
@@ -59,9 +59,9 @@ FROM employees e
 JOIN salaries  s ON e.emp_no = s.emp_no
 WHERE s.salary = (SELECT MAX(salary) FROM salaries);
 
-/* =========================================================
+/*
    3) DEMOGRAFÍA
-   ========================================================= */
+ */
 
 -- Conteo por género (histórico, 1 por empleado)
 SELECT gender, COUNT(*) AS total
@@ -76,9 +76,9 @@ FROM employees e;
 SELECT CONCAT(LEFT(first_name,1), '.', LEFT(last_name,1), '.') AS iniciales
 FROM employees;
 
-/* =========================================================
+/*
    4) CARGOS (TITLES)
-   ========================================================= */
+  */
 
 -- ¿Cuántos empleados han ostentado cada cargo (histórico)?
 -- Ordenado del cargo más común al menos común
@@ -131,9 +131,9 @@ WHERE t.title = 'Senior Engineer'
 ORDER BY s.salary DESC
 LIMIT 1;
 
-/* =========================================================
+/* 
    5) DEPARTAMENTOS & GERENTES
-   ========================================================= */
+ */
 
 -- Empleado (emp_no, nombre) + departamento actual
 SELECT 
@@ -205,9 +205,9 @@ JOIN dept_manager  dm ON dm.emp_no = e.emp_no
 JOIN departments   d  ON d.dept_no = dm.dept_no
 WHERE d.dept_name = 'Development';
 
-/* =========================================================
+/* 
    6) SUBCONSULTAS ÚTILES
-   ========================================================= */
+ */
 
 -- Personas que son o han sido gerentes (histórico)
 SELECT 
@@ -223,9 +223,9 @@ SELECT
 FROM employees e
 WHERE e.emp_no NOT IN (SELECT dm.emp_no FROM dept_manager dm);
 
-/* =========================================================
+/* 
    7) AGRUPACIONES & FECHAS
-   ========================================================= */
+*/
 
 -- Contrataciones por mes (independiente del año)
 SELECT 
@@ -235,9 +235,9 @@ FROM employees e
 GROUP BY MONTH(e.hire_date)
 ORDER BY mes;
 
-/* =========================================================
+/*
    8) UTILIDADES VARIAS
-   ========================================================= */
+ */
 
 -- Top 100 nombres completos
 SELECT CONCAT(e.first_name, ' ', e.last_name) AS nombre_completo
